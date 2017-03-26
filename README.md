@@ -1,6 +1,8 @@
 # My Quest
 
-Life is the greatest quest, and this is mine.
+Life is the greatest quest, and this is mine. I will document high-level
+resources (such as aggregators) to go to that I've found rather than the
+content itself.
 
 ## Setup
 
@@ -9,9 +11,10 @@ another interface.
 
 This is based on node so install `gitbook-cli`:
 
-    npm install gitbook-cli -g
+    npm install gitbook-cli
 
 Development:
 
-    gitbook serve
-    gitbook build
+    ./node_modules/.bin/gitbook serve
+
+    ./node_modules/.bin/gitbook build
