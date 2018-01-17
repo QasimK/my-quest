@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-* [Surviving Consumerism](human-rights-my.md)
+* [Surviving Consumerism](surviving-consumerism.md)
 * [Learning](learning.md)
 * [Infrastructure](infrastructure.md)
 
