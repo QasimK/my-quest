@@ -1,6 +1,7 @@
 # Promising Projects
 
 * [pass-rotate](https://github.com/SirCmpwn/pass-rotate) Rotate passwords across websites; by Drew DeVault, a creator of Sway WM.
+* [Krypton](https://krypt.co/) Use your phone as 2FA hardware.
 
 ## Note-taking App
 
