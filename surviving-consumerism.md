@@ -9,6 +9,7 @@ In general, it's safe to assume that people want your money and to make money of
   * [https://dev.cbcdn.com/ipmagnet/](https://dev.cbcdn.com/ipmagnet/)
   * [https://browserleaks.com/](https://browserleaks.com/)
 * [https://secured.fyi/](https://secured.fyi/)
+* https://www.commonsensemedia.org/
 
 ## UK
 
