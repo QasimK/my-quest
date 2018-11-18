@@ -2,7 +2,8 @@
 
 * [pass-rotate](https://github.com/SirCmpwn/pass-rotate) Rotate passwords across websites; by Drew DeVault, a creator of Sway WM.
 * [Krypton](https://krypt.co/) Use your phone as 2FA hardware.
-* [Wireguard](https://www.wireguard.com/) OpenVPN replacement
+* [Wireguard](https://www.wireguard.com/) OpenVPN replacement.
+* [SwayWM](https://swaywm.org/) Wayland Tiling Window Manager.
 
 ## Note-taking App
 

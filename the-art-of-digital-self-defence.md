@@ -14,7 +14,7 @@ $ exiftool -all= image.jpg
 
 ## Firefox
 
-Running a completely clean instance of Firefox:
+Running a completely clean instance of Firefox \(THIS IS DANGEROUS - it will delete your Firefox profile if you are not careful!\):
 
 ```
 #!/bin/sh
