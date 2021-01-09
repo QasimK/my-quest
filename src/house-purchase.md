@@ -6,6 +6,3 @@
 * [London Air Quality](https://www.londonair.org.uk/london/asp/annualmaps.asp)
 * [Illustreet's Where to Live, Crime Rates, and House Prices Maps](https://illustreets.com/our-apps/)
 * [PlaceILive's Liveability Index](https://london.placeilive.com/)
-
-
-

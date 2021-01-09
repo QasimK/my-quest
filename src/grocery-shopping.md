@@ -25,6 +25,3 @@ https://www.bbc.co.uk/iplayer/episode/m0006p3j/horizon-2019-4-the-honest-superma
 * Foreign _durable_ fruit/vegetables like apples or bananas are shipped on low-emission ships
   * These may still be polluting
 * Foreign fragile fruit/vegetables are flown in which is awful.
-
-
-

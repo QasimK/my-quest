@@ -1,24 +1,11 @@
 # My Quest
 
-Life is the greatest quest, and this is mine. I will document high-level resources \(such as aggregators\) to go to that I've found rather than the content itself. An aggregator of aggregators.
+## Writing
 
-## Setup
+1. Install [mdbook](https://github.com/rust-lang/mdBook) (one-off)
+2. `mdbook serve` to write and view in a browser
+3. `./bin/save.sh` to save (quick commit all & publish)
 
-We use [gitbook](https://www.gitbook.com/) because we don't want to write yet another interface.
+The [Markdown Guide](https://www.markdownguide.org/) is useful!
 
-This is based on node so install `gitbook-cli`:
-
-```
-npm install gitbook-cli
-```
-
-Development:
-
-```
-./node_modules/.bin/gitbook serve
-
-./node_modules/.bin/gitbook build
-```
-
-
-
+This is published on GitHub pages at <https://QasimK.io/my-quest/>.

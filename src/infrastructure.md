@@ -6,6 +6,3 @@ Many things rely on core components.
 * [IFPS](https://ipfs.io/) is a distributed web - a peer-to-peer hypermedia protocol.
 * DAT, GNUnet, ...?
 * Matrix?
-
-
-

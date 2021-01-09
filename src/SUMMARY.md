@@ -8,9 +8,9 @@
 * [Infrastructure](infrastructure.md)
 * [Promising Projects](lookout.md)
 * [Bad Actors](bad-actors.md)
+* [Home Security](home-security.md)
 * [The Art of Digital Self-Defence](the-art-of-digital-self-defence.md)
 
 ## Ignore
 
 * [IgnoreMe](ignoreme.md)
-

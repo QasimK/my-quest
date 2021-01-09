@@ -29,7 +29,7 @@ cd - > /dev/null
 
 /usr/local/bin/firefox $@
 echo "Holding...."
-sleep 2    
+sleep 2
 echo "Cleaning...."
 
 # Clean out junk (so we start clean next time)
@@ -41,4 +41,3 @@ cd - > /dev/null
 ```
 
 [Source](https://news.ycombinator.com/item?id=16500301)
-

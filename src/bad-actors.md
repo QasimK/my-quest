@@ -9,6 +9,3 @@
 ## Other
 
 * [Quora hoards knowledge](https://waxy.org/2018/12/why-you-should-never-ever-use-quora/) despite asking for community contributions.
-
-
-
