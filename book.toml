@@ -1,0 +1,9 @@
+[book]
+title = "My Quest"
+author = "QasimK"
+description = "My knowledge relating to life."
+language = "en-GB"
+
+[output.html]
+site-url = "/my-quest/"
+git-repository-url = "https://github.com/QasimK/my-quest"
