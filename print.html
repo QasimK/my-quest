@@ -4,27 +4,17 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>My Quest</title>
-        
         <meta name="robots" content="noindex" />
-        
-        
 
 
         <!-- Custom HTML head -->
         
-
-
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="My knowledge relating to life.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="favicon.svg">
-        
-        
         <link rel="shortcut icon" href="favicon.png">
-        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
@@ -32,9 +22,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="fonts/fonts.css">
-        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -42,19 +30,18 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -70,7 +57,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -82,12 +69,14 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -100,12 +89,33 @@
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
@@ -114,17 +124,15 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">My Quest</h1>
@@ -133,18 +141,16 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
                         <a href="https://github.com/QasimK/my-quest" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -152,10 +158,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -165,23 +170,23 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#my-quest" id="my-quest">My Quest</a></h1>
+                        <h1 id="my-quest"><a class="header" href="#my-quest">My Quest</a></h1>
 <p>My quest to document things about life.</p>
 <hr />
 <p><a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="./cc-by-sa.png" alt="Creative Commons License" title="Creative Commons License" /></a>
 <br>
 This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
-<h1><a class="header" href="#learning" id="learning">Learning</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="learning"><a class="header" href="#learning">Learning</a></h1>
 <p>Learning is one of the most important things that we do.</p>
-<h2><a class="header" href="#where-do-i-go-to-learn-something" id="where-do-i-go-to-learn-something">Where do I go to learn something?</a></h2>
+<h2 id="where-do-i-go-to-learn-something"><a class="header" href="#where-do-i-go-to-learn-something">Where do I go to learn something?</a></h2>
 <ul>
 <li><a href="https://metacademy.org/">Metacademy</a> is a project to created a directed (hopefully acyclic) graph of knowledge, and to search for what you want.</li>
 </ul>
-<h2><a class="header" href="#research-distillation" id="research-distillation">Research distillation</a></h2>
+<h2 id="research-distillation"><a class="header" href="#research-distillation">Research distillation</a></h2>
 <ul>
 <li><a href="http://distill.pub/">Distill</a> is a project to distill Machine Learning research in a clear and intuitive manner.</li>
 </ul>
-<h1><a class="header" href="#useful-services" id="useful-services">Useful Services</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="useful-services"><a class="header" href="#useful-services">Useful Services</a></h1>
 <ul>
 <li><a href="https://www.accountkiller.com/en/">Account Killer</a> - How to delete an online account</li>
 <li><a href="https://tosdr.org/">tosdr </a>-Terms of Service; Didn't Read (with browser addons)</li>
@@ -195,7 +200,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa
 <li><a href="https://secured.fyi/">https://secured.fyi/</a></li>
 <li><a href="https://www.commonsensemedia.org/">https://www.commonsensemedia.org/</a></li>
 </ul>
-<h2><a class="header" href="#uk" id="uk">UK</a></h2>
+<h2 id="uk"><a class="header" href="#uk">UK</a></h2>
 <ul>
 <li>Stopping <a href="https://www.which.co.uk/consumer-rights/advice/can-i-stop-unwanted-direct-marketing">unwanted direct messaging</a> (spam mail/text etc.)</li>
 <li>Register for possible <a href="https://propertyalert.landregistry.gov.uk/">fraud alerts on properties</a></li>
@@ -207,20 +212,20 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa
 </ul>
 </li>
 </ul>
-<h1><a class="header" href="#grocery-shopping" id="grocery-shopping">Grocery Shopping</a></h1>
-<h2><a class="header" href="#pesticides" id="pesticides">Pesticides</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="grocery-shopping"><a class="header" href="#grocery-shopping">Grocery Shopping</a></h1>
+<h2 id="pesticides"><a class="header" href="#pesticides">Pesticides</a></h2>
 <p>https://www.bbc.co.uk/iplayer/episode/m0006p3j/horizon-2019-4-the-honest-supermarket-whats-really-in-our-food</p>
 <ul>
 <li>Effect of individual pesticides safe</li>
 <li>Mixture of multiple pesticides has a significant detrimental effect (rats)</li>
 </ul>
-<h2><a class="header" href="#fresh-fish" id="fresh-fish">Fresh Fish</a></h2>
+<h2 id="fresh-fish"><a class="header" href="#fresh-fish">Fresh Fish</a></h2>
 <p>https://www.bbc.co.uk/iplayer/episode/m0006p3j/horizon-2019-4-the-honest-supermarket-whats-really-in-our-food</p>
 <ul>
 <li>May not be very fresh - sample were all around 3 weeks old</li>
 <li>Frozen fish recommended</li>
 </ul>
-<h2><a class="header" href="#carbon-footprint" id="carbon-footprint">Carbon Footprint</a></h2>
+<h2 id="carbon-footprint"><a class="header" href="#carbon-footprint">Carbon Footprint</a></h2>
 <p>https://www.bbc.co.uk/iplayer/episode/m0006p3j/horizon-2019-4-the-honest-supermarket-whats-really-in-our-food</p>
 <p>(It would be nice if it was labelled.)</p>
 <ul>
@@ -233,7 +238,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa
 </li>
 <li>Foreign fragile fruit/vegetables are flown in which is awful.</li>
 </ul>
-<h1><a class="header" href="#house-purchase-stuff" id="house-purchase-stuff">House Purchase Stuff</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="house-purchase-stuff"><a class="header" href="#house-purchase-stuff">House Purchase Stuff</a></h1>
 <ul>
 <li><a href="http://extrium.co.uk/noiseviewer.html">England Noise Map</a>
 <ul>
@@ -245,7 +250,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa
 <li><a href="https://illustreets.com/our-apps/">Illustreet's Where to Live, Crime Rates, and House Prices Maps</a></li>
 <li><a href="https://london.placeilive.com/">PlaceILive's Liveability Index</a></li>
 </ul>
-<h1><a class="header" href="#infrastructure" id="infrastructure">Infrastructure</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="infrastructure"><a class="header" href="#infrastructure">Infrastructure</a></h1>
 <p>Many things rely on core components.</p>
 <ul>
 <li><a href="https://lbry.io/">Lbry</a> is a free, open, and community-run digital marketplace. It is a project to allow content such as books, music, and films to be globally referenced, downloaded (or purchased) in a decentralised manner directly from authors.</li>
@@ -253,20 +258,20 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa
 <li>DAT, GNUnet, ...?</li>
 <li>Matrix?</li>
 </ul>
-<h1><a class="header" href="#promising-projects" id="promising-projects">Promising Projects</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="promising-projects"><a class="header" href="#promising-projects">Promising Projects</a></h1>
 <ul>
 <li><a href="https://github.com/SirCmpwn/pass-rotate">pass-rotate</a> Rotate passwords across websites; by Drew DeVault, the creator of Sway WM.</li>
 <li><a href="https://krypt.co/">Krypton</a> Use your phone as 2FA hardware.</li>
 <li><a href="https://www.wireguard.com/">Wireguard</a> OpenVPN replacement.</li>
 <li><a href="https://swaywm.org/">SwayWM</a> Wayland Tiling Window Manager.</li>
 </ul>
-<h2><a class="header" href="#note-taking-app" id="note-taking-app">Note-taking App</a></h2>
+<h2 id="note-taking-app"><a class="header" href="#note-taking-app">Note-taking App</a></h2>
 <p>An open-source, cross-platform, private-syncing alternative to Evernote?</p>
 <ul>
 <li>Perhaps Joplin <a href="https://joplin.cozic.net/">https://joplin.cozic.net/</a></li>
 <li>Perhaps BoostNote <a href="https://boostnote.io/">https://boostnote.io/</a></li>
 </ul>
-<h1><a class="header" href="#known-bad-actors" id="known-bad-actors">Known Bad Actors</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="known-bad-actors"><a class="header" href="#known-bad-actors">Known Bad Actors</a></h1>
 <ul>
 <li>Gmail has sent me multiple emails titled &quot;you're not using the official Gmail app&quot;, with no way to stop them.
 <ul>
@@ -277,38 +282,54 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa
 <li><a href="https://www.timetoplayfair.com/timeline/">Apple is monopolistic</a>, and deliberately undermines competion against itself in ways that are deeply harmful to customers. As a user of Spotify, I noticed and <em>hated</em> many of the things that were pointed out in this article.</li>
 <li>I'm not touching Netflix because they only provide 720p for Firefox on Linux in 2019 (and counting).</li>
 </ul>
-<h2><a class="header" href="#other" id="other">Other</a></h2>
+<h2 id="other"><a class="header" href="#other">Other</a></h2>
 <ul>
 <li><a href="https://waxy.org/2018/12/why-you-should-never-ever-use-quora/">Quora hoards knowledge</a> despite asking for community contributions.</li>
 </ul>
-<h1><a class="header" href="#home-security" id="home-security">Home Security</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="home-security"><a class="header" href="#home-security">Home Security</a></h1>
 <p>https://thecrimepreventionwebsite.com</p>
-<h2><a class="header" href="#garden" id="garden">Garden</a></h2>
-<h2><a class="header" href="#doors" id="doors">Doors</a></h2>
-<p>Cycliders can be snapped off.</p>
+<h2 id="garden"><a class="header" href="#garden">Garden</a></h2>
+<h2 id="doors"><a class="header" href="#doors">Doors</a></h2>
+<p>https://www.locksmiths.co.uk/faq/door-lock-types-guide/</p>
+<p>Cylinders - Picking, Drilling, Bumping and Snapping.</p>
+<p>Standards: SS312 Diamond Approved (better), or TS 007 3 star kitemark</p>
 <p>e.g.: Ultion</p>
-<p>(What are the standards?)</p>
 <p>Get more effective door handles.</p>
+<p>https://www.locksmiths.co.uk/faq/upvc-door-handles/</p>
+<p>Standards: TS007 2 Star Approved kitemark &amp; PAS24 handles fitted</p>
 <p>e.g. Lock-Lock</p>
 <p>uPVC doors themselves can be weak. Get stronger composite doors.</p>
 <p>e.g. Rockdoors</p>
-<h3><a class="header" href="#video-doorbells" id="video-doorbells">Video Doorbells</a></h3>
+<h3 id="sash-jammers"><a class="header" href="#sash-jammers">Sash Jammers</a></h3>
+<p>French doors - 2 at top, 2 at bottom</p>
+<h3 id="french-doors---patlock"><a class="header" href="#french-doors---patlock">French doors - Patlock</a></h3>
+<h2 id="front-door---video-doorbells"><a class="header" href="#front-door---video-doorbells">Front Door - Video Doorbells</a></h2>
 <p>You can integrate a video doorbell into the spyhole.</p>
 <p>You can get doorbells that detect knocks.</p>
-<h2><a class="header" href="#windows" id="windows">Windows</a></h2>
+<h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
 <p>Multipoint locks.</p>
-<h3><a class="header" href="#upvc-sash-jammer-doors--windows" id="upvc-sash-jammer-doors--windows">uPVC Sash Jammer (doors &amp; windows)</a></h3>
+<p>Standards: PAS24:2012</p>
+<h3 id="upvc-sash-jammer-doors--windows"><a class="header" href="#upvc-sash-jammer-doors--windows">uPVC Sash Jammer (doors &amp; windows)</a></h3>
+<p>https://www.locksmiths.co.uk/faq/sash-jammers/</p>
 <p>Not sure if these are effective.</p>
 <p>Use screws + glue (e.g. araldite) to stop the screws from coming loose.</p>
-<h1><a class="header" href="#the-art-of-digital-self-defence" id="the-art-of-digital-self-defence">The Art of Digital Self-Defence</a></h1>
-<h2><a class="header" href="#strip-exif" id="strip-exif">Strip EXIF</a></h2>
+<h3 id="decorative-security-grills-or-bars"><a class="header" href="#decorative-security-grills-or-bars">Decorative security grills or bars</a></h3>
+<h2 id="internal-doors"><a class="header" href="#internal-doors">Internal Doors</a></h2>
+<p>https://www.locksmiths.co.uk/faq/door-lock-types-guide/
+https://www.locksmiths.co.uk/services/house-and-home/lock-replacement-change-fitting/</p>
+<p>5 Lever mortice sash locks, BS3621.</p>
+<h2 id="references"><a class="header" href="#references">References</a></h2>
+<p>https://crimestoppers-uk.org/keeping-safe/home-property-safety/burglary
+https://www.locksmiths.co.uk/faq/home-security-advice/</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-art-of-digital-self-defence"><a class="header" href="#the-art-of-digital-self-defence">The Art of Digital Self-Defence</a></h1>
+<h2 id="strip-exif"><a class="header" href="#strip-exif">Strip EXIF</a></h2>
 <p>EXIF data contains: GPS locations, date/time of photo, and hardware-identifying information.</p>
 <pre><code class="language-bash">$ sudo pacman -S --needed perl-image-exiftool
 $ exiftool image.jpg
 $ exiftool -all= image.jpg
 </code></pre>
 <p><a href="https://askubuntu.com/questions/260810/how-can-i-read-and-remove-meta-exif-data-from-my-photos-using-the-command-line">Source</a></p>
-<h2><a class="header" href="#firefox" id="firefox">Firefox</a></h2>
+<h2 id="firefox"><a class="header" href="#firefox">Firefox</a></h2>
 <p>Running a completely clean instance of Firefox (THIS IS DANGEROUS - it will delete your Firefox profile if you are not careful!):</p>
 <pre><code>#!/bin/sh
 
@@ -333,7 +354,7 @@ rm -fr .macromedia
 cd - &gt; /dev/null
 </code></pre>
 <p><a href="https://news.ycombinator.com/item?id=16500301">Source</a></p>
-<ul>
+<div style="break-before: page; page-break-before: always;"></div><ul>
 <li>Do something with this <a href="https://dcgross.com/accomplish-dread-tasks/">https://dcgross.com/accomplish-dread-tasks/</a></li>
 <li>no bad weather for hiking, only bad clothes: www.filling.com/rain/</li>
 </ul>
@@ -342,9 +363,7 @@ cd - &gt; /dev/null
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
 
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -352,49 +371,35 @@ cd - &gt; /dev/null
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
 
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
-        
-        <script type="text/javascript">
+        <script>
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
-        
-        
 
+    </div>
     </body>
 </html>
